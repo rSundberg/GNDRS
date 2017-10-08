@@ -1,7 +1,12 @@
 const path = require('path');
 
+const cssOptions = {
+    localIdentName: '[name]__[local]-[hash:base32:5]',
+    modules: true
+}
+
 const config = {
-    entry: './App/App.js',
+    entry: './App/index.js',
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'App.bundle.js'
@@ -9,7 +14,7 @@ const config = {
     module: {
         rules: [
             {   
-                test: /\.js$/,
+                test: /(.js$|.jsx$)/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -17,8 +22,21 @@ const config = {
                         presets: ['env', 'react']
                     }
                 }
+            },
+            {
+                test: /(.css$|.scss$)/,
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader', query: cssOptions},
+                    { loader: 'sass-loader' }
+                ]
             }
         ]
+    },
+    devServer: {
+        contentBase: path.join(__dirname, "public"),
+        compress: true,
+        port: 8080
     }
 }
 

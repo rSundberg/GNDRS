@@ -19,5 +19,7 @@
         "eslint:recommended",
         "plugin:react/recommended"
     ],
-    "rules": {}
+    "rules": {
+        "react/prop-types": 0
+    }
 }
