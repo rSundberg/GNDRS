@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Main, NavigationBar, Logo, Menu, SignUp, Items } from './index.scss'
+import Anime from 'animejs'
+import './index.scss'
 
 import firebase from 'firebase'
 
-import Item from './Components/Item/Item'
+import StartProductReel from './Components/StartProductReel/StartProductReel'
+import NavigationBar from './Components/NavigationBar/NavigationBar'
 
 firebase.initializeApp({
     apiKey: "AIzaSyCG8Eb9-TZkdciu28ue33LNeY9fRopGG_w",
@@ -15,74 +17,58 @@ firebase.initializeApp({
     messagingSenderId: "151611509859"
 })
 
-function Wrapper(props) {
-    return <div className={props.page}>{props.children}</div>
-}
-
 class RootWrapper extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            input: {
-                name: '',
-                email: ''
+            scroll: {
+                value: 0,
+                percent: 0
             }
         }
 
-        this.setName = this.setName.bind(this)
-        this.setEmail = this.setEmail.bind(this)
-        this.submitInput = this.submitInput.bind(this)
+        this.setWindowPos = this.setWindowPos.bind(this)
     }
 
-    setName(e) {
-        e.persist()
-        this.setState(prevState => ({
-            input: {
-                name: e.target.value,
-                email: prevState.input.email
-            }
-        }))
+    componentDidMount() {
+        document.addEventListener('scroll', this.setWindowPos)   
     }
 
-    setEmail(e) {
-        e.persist()
-        this.setState(prevState => ({
-            input: {
-                name: prevState.input.name,
-                email: e.target.value
-            }
-        }))
-    }
+    setWindowPos(e) {
+        // if (window.pageYOffset < this.state.windowPos) {
+        //     this.setState(prevState => ({ windowPos: prevState.windowPos += 1 }))   
+        // } else {
+        //     this.setState(prevState => ({ windowPos: prevState.windowPos -= 1 }))
+        // }
+        var winHeight = window.innerHeight;
 
-    submitInput() {
-        firebase.database().ref('signup').push(this.state.input)
-    }
+        // Annoying to compute doc height due to browser inconsistency
+        var body = document.body;
+        var html = document.documentElement;
+        var docHeight = Math.max(body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight);
 
+        var value = window.pageYOffset;
+
+        var max = docHeight - winHeight;
+        var percent = (value / max) * 100;
+
+        this.setState({scroll: {value: Math.round(value), percent: percent}})
+
+    }
+    
     render () {
         return (
-            <div className={ Main }>
-                <Wrapper page={ Items }>
-                    <Item
-                        src={'https://i.pinimg.com/736x/41/cc/cd/41cccdaad9f3a36915a8f0a755c02e7a--holographic-bag-holographic-fashion.jpg'}
-                        name={'Sparkly Black'}
-                    />
-                    <Item
-                        src={'https://i.pinimg.com/736x/41/cc/cd/41cccdaad9f3a36915a8f0a755c02e7a--holographic-bag-holographic-fashion.jpg'}
-                        name={'Colorful White'}
-                        reverse={true}
-                    />
-                </Wrapper>
-                {/* <Wrapper page={ SignUp }>
-                    <h2 key='SignupHead' className='signup__text'>HEJ</h2>
-                    <input key='SignupName' className='signup__input' id='SignupName' onChange={this.setName} />
-                    <input key='SignupEmail' className='signup__input' id='SignupEmail' onChange={this.setEmail}/>
-                    <button onClick={this.submitInput}>Submit</button>
-                </Wrapper> */}
-                <Wrapper page={NavigationBar}>
-                    <h1 className={Logo}>GNDRS</h1>
-                    <div className={Menu}></div>
-                </Wrapper>
+            <div className='main'>
+                <div className='main__scroller'></div>
+                <StartProductReel
+
+                    scrollValue={this.state.scroll.value}
+
+                    scrollPercent={this.state.scroll.percent}
+
+                />
             </div>
         )
     }

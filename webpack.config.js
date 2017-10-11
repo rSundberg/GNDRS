@@ -1,9 +1,9 @@
 const path = require('path');
 
-const cssOptions = {
-    localIdentName: '[name]__[local]-[hash:base32:5]',
-    modules: true
-}
+// const cssOptions = {
+//     localIdentName: '[name]__[local]-[hash:base32:5]',
+//     modules: true
+// }
 
 const config = {
     entry: './App/index.js',
@@ -27,7 +27,7 @@ const config = {
                 test: /(.css$|.scss$)/,
                 use: [
                     { loader: 'style-loader' },
-                    { loader: 'css-loader', query: cssOptions},
+                    { loader: 'css-loader' },
                     { loader: 'sass-loader' }
                 ]
             }

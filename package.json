@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "deploy": "webpack && firebase deploy"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rSundberg/GNDRS.git"
@@ -15,6 +17,7 @@
   },
   "homepage": "https://github.com/rSundberg/GNDRS#readme",
   "dependencies": {
+    "animejs": "^2.2.0",
     "firebase": "^4.5.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
