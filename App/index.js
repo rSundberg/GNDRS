@@ -28,47 +28,41 @@ class RootWrapper extends React.Component {
             }
         }
 
-        this.setWindowPos = this.setWindowPos.bind(this)
+        // this.setWindowPos = this.setWindowPos.bind(this)
     }
 
-    componentDidMount() {
-        document.addEventListener('scroll', this.setWindowPos)   
-    }
+    // componentDidMount() {
+    //     document.addEventListener('scroll', this.setWindowPos)
+    //     console.log('eyy')
+    // }
 
-    setWindowPos(e) {
-        // if (window.pageYOffset < this.state.windowPos) {
-        //     this.setState(prevState => ({ windowPos: prevState.windowPos += 1 }))   
-        // } else {
-        //     this.setState(prevState => ({ windowPos: prevState.windowPos -= 1 }))
-        // }
-        var winHeight = window.innerHeight;
+    // setWindowPos(e) {
+    //     // if (window.pageYOffset < this.state.windowPos) {
+    //     //     this.setState(prevState => ({ windowPos: prevState.windowPos += 1 }))   
+    //     // } else {
+    //     //     this.setState(prevState => ({ windowPos: prevState.windowPos -= 1 }))
+    //     // }
 
-        // Annoying to compute doc height due to browser inconsistency
-        var body = document.body;
-        var html = document.documentElement;
-        var docHeight = Math.max(body.scrollHeight, body.offsetHeight,
-            html.clientHeight, html.scrollHeight, html.offsetHeight);
+    //     var winHeight = window.innerHeight;
+    //     var body = document.body;
+    //     var html = document.documentElement;
+    //     var docHeight = Math.max(body.scrollHeight, body.offsetHeight,
+    //         html.clientHeight, html.scrollHeight, html.offsetHeight);
 
-        var value = window.pageYOffset;
+    //     var value = window.pageYOffset;
 
-        var max = docHeight - winHeight;
-        var percent = (value / max) * 100;
+    //     var max = docHeight - winHeight;
+    //     var percent = (value / max) * 100;
 
-        this.setState({scroll: {value: Math.round(value), percent: percent}})
+    //     this.setState({scroll: {value: Math.round(value), percent: percent}})
 
-    }
+    // }
     
     render () {
         return (
             <div className='main'>
                 <div className='main__scroller'></div>
-                <StartProductReel
-
-                    scrollValue={this.state.scroll.value}
-
-                    scrollPercent={this.state.scroll.percent}
-
-                />
+                <StartProductReel/>
             </div>
         )
     }

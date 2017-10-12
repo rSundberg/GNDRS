@@ -16,6 +16,7 @@
     }
 
     &__text {
+        position: absolute;
         font-size: 13vh;
         width: 372px;
         font-family: Arial, sans-serif;
@@ -29,4 +30,10 @@
     &__action {
 
     }
+}
+
+.makeMeScroll {
+    height: 600vh;
+    position: relative;
+    top: 0;
 }

@@ -48435,6 +48435,15 @@ var StartProductReel = function (_Component) {
     }
 
     _createClass(StartProductReel, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps() {}
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
+            this.state.imageAnimation.seek(this.state.imageAnimation.duration * (this.props.scrollPercent / 10));
+            this.state.textAnimation.seek(this.state.textAnimation.duration * (this.props.scrollPercent / 10));
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.setState({
@@ -48462,11 +48471,6 @@ var StartProductReel = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            if (this.state.imageAnimation !== null && this.state.textAnimation !== null) {
-                this.state.imageAnimation.seek(this.state.imageAnimation.duration * (this.props.scrollPercent / 10));
-                this.state.textAnimation.seek(this.state.textAnimation.duration * (this.props.scrollPercent / 10));
-            }
-
             return _react2.default.createElement(
                 'div',
                 { className: 'StartProductReel' },
