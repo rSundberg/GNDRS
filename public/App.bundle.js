@@ -48463,8 +48463,8 @@ var StartProductReel = function (_Component) {
         key: 'render',
         value: function render() {
             if (this.state.imageAnimation !== null && this.state.textAnimation !== null) {
-                this.state.imageAnimation.seek(this.state.imageAnimation.duration * (this.props.scrollPercent / 100));
-                this.state.textAnimation.seek(this.state.textAnimation.duration * (this.props.scrollPercent / 100));
+                this.state.imageAnimation.seek(this.state.imageAnimation.duration * (this.props.scrollPercent / 10));
+                this.state.textAnimation.seek(this.state.textAnimation.duration * (this.props.scrollPercent / 10));
             }
 
             return _react2.default.createElement(
@@ -48521,7 +48521,7 @@ exports = module.exports = __webpack_require__(42)(undefined);
 
 
 // module
-exports.push([module.i, ".StartProductReel {\n  position: fixed;\n  height: 100vh;\n  width: 100vw;\n  top: 0;\n  overflow: hidden; }\n  .StartProductReel__image {\n    height: 80vh;\n    position: absolute; }\n    .StartProductReel__image img {\n      width: auto;\n      height: 100%; }\n  .StartProductReel__text {\n    font-size: 72px;\n    font-family: Arial, sans-serif;\n    font-weight: bold; }\n", ""]);
+exports.push([module.i, ".StartProductReel {\n  position: fixed;\n  height: 100vh;\n  width: 100vw;\n  top: 0;\n  overflow: hidden; }\n  .StartProductReel__image {\n    height: 80vh;\n    position: absolute; }\n    .StartProductReel__image img {\n      width: auto;\n      height: 100%; }\n  .StartProductReel__text {\n    font-size: 13vh;\n    width: 372px;\n    font-family: Arial, sans-serif;\n    font-weight: bold; }\n", ""]);
 
 // exports
 

@@ -48,6 +48,15 @@ class StartProductReel extends Component {
         }
     }
 
+    componentWillReceiveProps() {
+
+    }
+
+    componentDidUpdate() {
+        this.state.imageAnimation.seek(this.state.imageAnimation.duration * (this.props.scrollPercent / 10))
+        this.state.textAnimation.seek(this.state.textAnimation.duration * (this.props.scrollPercent / 10))
+    }
+
     componentDidMount() {
         this.setState({
             imageAnimation: Anime({
@@ -85,11 +94,6 @@ class StartProductReel extends Component {
     }
 
     render() {
-        if (this.state.imageAnimation !== null && this.state.textAnimation !== null) {
-            this.state.imageAnimation.seek(this.state.imageAnimation.duration * (this.props.scrollPercent / 100))
-            this.state.textAnimation.seek(this.state.textAnimation.duration * (this.props.scrollPercent / 100))
-        }
-
         return (
             <div className='StartProductReel'>
                 <Image src={this.state.items[0].src}/>
