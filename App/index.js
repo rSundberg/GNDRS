@@ -27,36 +27,7 @@ class RootWrapper extends React.Component {
                 percent: 0
             }
         }
-
-        // this.setWindowPos = this.setWindowPos.bind(this)
     }
-
-    // componentDidMount() {
-    //     document.addEventListener('scroll', this.setWindowPos)
-    //     console.log('eyy')
-    // }
-
-    // setWindowPos(e) {
-    //     // if (window.pageYOffset < this.state.windowPos) {
-    //     //     this.setState(prevState => ({ windowPos: prevState.windowPos += 1 }))   
-    //     // } else {
-    //     //     this.setState(prevState => ({ windowPos: prevState.windowPos -= 1 }))
-    //     // }
-
-    //     var winHeight = window.innerHeight;
-    //     var body = document.body;
-    //     var html = document.documentElement;
-    //     var docHeight = Math.max(body.scrollHeight, body.offsetHeight,
-    //         html.clientHeight, html.scrollHeight, html.offsetHeight);
-
-    //     var value = window.pageYOffset;
-
-    //     var max = docHeight - winHeight;
-    //     var percent = (value / max) * 100;
-
-    //     this.setState({scroll: {value: Math.round(value), percent: percent}})
-
-    // }
     
     render () {
         return (

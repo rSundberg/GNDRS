@@ -100,7 +100,6 @@ class StartProductReel extends Component {
     panes = []
 
     registerPane = (node) => {
-        console.log(node)
         if (!this.findPane(node)) {
             this.addEvents(node)
             this.panes.push(node)
@@ -171,15 +170,12 @@ class StartProductReel extends Component {
                 const winHeight = window.innerHeight;
                 const body = document.body;
                 const html = document.documentElement;
-                const docHeight = Math.max(body.scrollHeight, body.offsetHeight,
-                    html.clientHeight, html.scrollHeight, html.offsetHeight);
+                const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 
                 const value = window.pageYOffset;
-                console.log(window.pageYOffset)
                 const max = docHeight - winHeight;
                 const percent = (value / max) * 100;
-                console.log(percent)
-                console.log(node.imageAnimation.animatables)
+
                 node.imageAnimation.seek(node.imageAnimation.duration * (percent / 10))
                 node.textAnimation.seek(node.textAnimation.duration * (percent / 10))
             })
