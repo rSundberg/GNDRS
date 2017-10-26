@@ -1,0 +1,64 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 5vh;
+    font-size: 2vh;
+}
+
+.product {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    &__image {
+
+    }
+
+    &__info {
+        position: absolute;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 2vh;
+        width: 100vw;
+        
+        &-row {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            margin-top: 4vh;
+        }
+    }
+
+    &__name {
+        font-size: 6vh;
+        font-weight: bold;
+    }
+
+    &__more {
+        @extend .button;
+        width: 50%;
+        background-color: black;
+        color: white;
+    }
+    
+    &__buy {
+        @extend .button;
+        border: 2px solid black;
+        width: 50%;
+
+        span {
+            color: red;
+            text-decoration: line-through;
+            margin: 0 1vh;
+        }
+    }
+
+    &__price {
+        margin-top: 1vh;
+        font-size: 3vh;
+    }
+}

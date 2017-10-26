@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Anime from 'animejs'
+import { StripeProvider } from 'react-stripe-elements';
+
 import './index.scss'
 
 import firebase from 'firebase'
 
-import StartProductReel from './Components/StartProductReel/StartProductReel'
-import NavigationBar from './Components/NavigationBar/NavigationBar'
+import Navigation from './Components/Navigation/Navigation'
+import Landing from './Components/Landing/Landing'
+import Product from './Components/Product/Product'
+import Checkout from './Components/Checkout/Checkout'
 
 firebase.initializeApp({
     apiKey: "AIzaSyCG8Eb9-TZkdciu28ue33LNeY9fRopGG_w",
@@ -20,23 +23,37 @@ firebase.initializeApp({
 class RootWrapper extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
-            scroll: {
-                value: 0,
-                percent: 0
-            }
+            bag: [],
+            items: [
+                { id: 1, name: 'Edgy silver', image: '', price: 29900 },
+                { id: 2, name: 'Bold black', image: '', price: 29900 }
+            ]
         }
     }
-    
-    render () {
+
+    addToBag = id => this.setState(prevState => ({
+        bag: prevState.bag.concat(this.state.items.filter(x => x.id === id).map(x => x))
+    }))
+
+    clearBag = () => this.setState({bag: []})
+
+    render = () => {
         return (
-            <div className='main'>
-                <div className='main__scroller'></div>
-                <StartProductReel/>
+            <div className="main">
+                <Landing />
+                {
+                    this.state.items.map(item => <Product key={item.id} {...item} addMe={this.addToBag.bind(this, item.id)}/>)
+                }
+                <Checkout bag={this.state.bag} clear={this.clearBag}/>
             </div>
         )
     }
 }
 
-ReactDOM.render(<RootWrapper/>, document.getElementById('App'))
+ReactDOM.render(
+    <StripeProvider apiKey='pk_test_QhUnHzCZbhzRxjhLre8jsgLV'>
+        <RootWrapper />
+    </StripeProvider>,
+    document.getElementById('App')
+)

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+    <defs>
+    </defs>
+    <title>GNDRS</title>
+    <g>
+        <rect width="1080" height="1080"/>
+    </g>
+    <g>
+        <text style="font-size:155px;fill:#fff;font-family:Arial-BoldItalicMT, Arial;font-weight:700;font-style:italic;letter-spacing:0.29em;" transform="translate(161.5 871.5)">GNDR<tspan class="cls-2" style="fill:red;letter-spacing:0.29em;" x="636.79" y="0">S</tspan></text>
+        <text style="font-size:155px;fill:#fff;font-family:Arial-BoldItalicMT, Arial;font-weight:700;font-style:italic;letter-spacing:0.29em;" transform="translate(161.5 871.5)" transform="translate(161.5 593.5)">GNDRS</text>
+        <text style="font-size:155px;fill:#fff;font-family:Arial-BoldItalicMT, Arial;font-weight:700;font-style:italic;letter-spacing:0.29em;" transform="translate(161.5 871.5)" transform="translate(161.5 315.5)">GNDRS</text>
+    </g>
+</svg>

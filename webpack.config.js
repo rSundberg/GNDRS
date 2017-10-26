@@ -6,7 +6,7 @@ const path = require('path');
 // }
 
 const config = {
-    entry: './App/index.js',
+    entry: ["babel-polyfill", './App/index.js'],
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: 'App.bundle.js'
@@ -19,7 +19,7 @@ const config = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        plugins: ["transform-class-properties"],
+                        plugins: ["transform-class-properties", "transform-object-rest-spread"],
                         presets: ['env', 'react']
                     }
                 }
@@ -30,6 +30,27 @@ const config = {
                     { loader: 'style-loader' },
                     { loader: 'css-loader' },
                     { loader: 'sass-loader' }
+                ]
+            },
+            {
+                test: /\.svg$/,
+                use: [
+                    {
+                        loader: "babel-loader"
+                    },
+                    {
+                        loader: "react-svg-loader",
+                        options: {
+                            jsx: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(jpe?g|png|gif)$/i,
+                use: [
+                    'url-loader?limit=10000',
+                    'img-loader'
                 ]
             }
         ]
