@@ -8,6 +8,7 @@ class CheckoutForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            disabled: false,
             name: null,
             email: null,
             address_line1: null,
@@ -31,16 +32,43 @@ class CheckoutForm extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.props.stripe.createToken(this.state).then(({ token }) => {
-            console.log('Received Stripe token not payment:', token);
+        e.persist()
 
-            fetch('https://us-central1-gndrs-49336.cloudfunctions.net/charge', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-                body: JSON.stringify(token)
-            }).then(output => console.log(output))
-        });
+        const tokenData = Object.keys(this.state).reduce((x, y) => {
+            if (y !== 'disabled') {
+                x[y] = this.state[y]
+            }
 
+            return x
+        }, {})
+
+        const noInfo = Object.keys(tokenData).some(key => tokenData[key] === null)
+
+        if (this.state.disabled === true || noInfo) {
+            return;
+        }
+
+        this.setState(
+            {disabled: true},
+            () => {
+                this.props.stripe.createToken(tokenData).then(({ token }) => {
+                    token.amount = this.props.total
+                    console.log(this.props.total)
+                    fetch('https://us-central1-gndrs-49336.cloudfunctions.net/charge', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(token)
+                    })
+                    .then(response => {
+                        console.log(response)
+                        this.props.success()
+                    })
+                    .catch(err => {
+                        this.setState({disabled: false})
+                    })
+                });
+            }
+        )
     }
 
     render() {
@@ -78,7 +106,7 @@ class CheckoutForm extends Component {
 
                 <CardElement style={{ base: { fontSize: '18px' } }} />
 
-                <button className='checkout__submit-button'>Confirm order</button>
+                <button className='checkout__submit-button' type='submit'>Confirm pre-order</button>
             </form>
         );
     }

@@ -6,10 +6,12 @@ import './index.scss'
 
 import firebase from 'firebase'
 
-import Navigation from './Components/Navigation/Navigation'
 import Landing from './Components/Landing/Landing'
 import Product from './Components/Product/Product'
 import Checkout from './Components/Checkout/Checkout'
+
+import edgy_silver from './edgy_silver.jpg'
+import bold_black from './bold_black.jpg'
 
 firebase.initializeApp({
     apiKey: "AIzaSyCG8Eb9-TZkdciu28ue33LNeY9fRopGG_w",
@@ -26,8 +28,20 @@ class RootWrapper extends React.Component {
         this.state = {
             bag: [],
             items: [
-                { id: 1, name: 'Edgy silver', image: '', price: 29900 },
-                { id: 2, name: 'Bold black', image: '', price: 29900 }
+                { id: 1, name: 'Edgy Silver', image: edgy_silver, price: 29900, details: {
+                    size: '38x26x16CM',
+                    material: 'Holographic plastic',
+                    material__inner: 'Polyester, grey',
+                    pockets: 'Laptop, Smartphone, Inner',
+                    description: 'GNDRS backpack is a new alternative to the outdated idea that backpacks are simply an item to carry your day to day belongings. This backpack is a statement. If people are bringing you down, it only means you are extra.'
+                } },
+                { id: 2,name: 'Bold Black', image: bold_black, price: 29900, details: {
+                        size: '38x26x16CM',
+                        material: 'Holographic plastic',
+                        material__inner: 'Polyester, black',
+                        pockets: 'Laptop, Smartphone, Inner',
+                        description: 'GNDRS backpack is a new alternative to the outdated idea that backpacks are simply an item to carry your day to day belongings. This backpack is a statement. If people are bringing you down, it only means you are extra.'
+                } }
             ]
         }
     }
@@ -52,7 +66,7 @@ class RootWrapper extends React.Component {
 }
 
 ReactDOM.render(
-    <StripeProvider apiKey='pk_test_QhUnHzCZbhzRxjhLre8jsgLV'>
+    <StripeProvider apiKey='pk_live_74QMtmndrvmUIHIQFGKwXP7B'>
         <RootWrapper />
     </StripeProvider>,
     document.getElementById('App')

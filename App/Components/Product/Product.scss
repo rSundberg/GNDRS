@@ -8,28 +8,75 @@
 }
 
 .product {
+    display: flex;
     position: relative;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
 
-    &__image {
+    &__details {
+        width: 100%;
 
+        &-row {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid black;
+            padding: 2vh 0 0;
+
+            h3 {
+                margin: 0;
+            }
+
+            span {
+
+            }
+        }
+
+        &-column {
+            padding: 2vh 0;
+        }
+    }
+
+    &__image {
+        position: relative;
+        width: auto;
+        height: 100vh;
+
+        img {
+            height: 100%;
+        }
     }
 
     &__info {
         position: absolute;
         display: flex;
-        flex-flow: column;
+        flex-flow: column nowrap;
         justify-content: center;
         box-sizing: border-box;
         padding: 2vh;
         width: 100vw;
+        height: 0;
+        z-index: 11;
+        transform: translateY(75vh);
+        max-width: 834px;
         
         &-row {
             display: flex;
             flex-flow: row nowrap;
             justify-content: flex-start;
             margin-top: 4vh;
+        }
+
+        &-column {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: flex-start;
+            align-items: center;
+            opacity: 0;
         }
     }
 
@@ -40,15 +87,21 @@
 
     &__more {
         @extend .button;
+        border: 2px solid black;
         width: 50%;
-        background-color: black;
-        color: white;
+
+        svg {
+            fill: white;
+            stroke: white;
+            height: 50%;
+        }
     }
     
     &__buy {
         @extend .button;
-        border: 2px solid black;
         width: 50%;
+        background-color: black;
+        color: white;
 
         span {
             color: red;
@@ -60,5 +113,19 @@
     &__price {
         margin-top: 1vh;
         font-size: 3vh;
+
+        span {
+            margin-right: 1vh;
+            color: red;
+            text-decoration: line-through;
+        }
+    }
+}
+
+@media (min-width: 420px) {
+    .product {
+        &__image {
+            left: 0;
+        }
     }
 }

@@ -7,6 +7,36 @@
     font-size: 18px;
     top: 0;
     background-color: rgba(255,255,255, 1);
+    max-width: 834px;
+    margin: 0 auto;
+
+    &__go-to {
+        position: fixed;
+        display: flex;
+        text-align: center;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 2vh;
+        background-color: black;
+        color: white;
+        width: 20vh;
+        bottom: 0vh;
+        right: 2vh;
+        z-index: 11;
+        font-size: 2vh;
+
+        &-arrow {
+            margin-top: 1vh;
+            width: 0; 
+            height: 0; 
+            border-left: 1vh solid transparent;
+            border-right: 1vh solid transparent;
+            
+            border-top: 1vh solid rgb(255,255,255);
+        }
+    }
 
     &__header {
         display: flex;
@@ -57,7 +87,7 @@
     }
 
     &__trash {
-        height: 4vh;
+        height: 5vh;
         stroke: red;
         fill: red;
         right: 0;
@@ -113,6 +143,10 @@
 
     }
 
+    &__delivery {
+        font-style: italic;
+    }
+
     &__form {
         width: 100%;
         display: flex;
@@ -136,6 +170,10 @@
         border: none;
         outline: none;
         color: rgb(255, 255, 255);
+
+        &--disabled {
+            background-color: black;
+        }
     }
 
     .PaymentRequestButton {

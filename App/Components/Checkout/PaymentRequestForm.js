@@ -7,17 +7,20 @@ class PaymentRequestForm extends Component {
         super(props);
 
         const paymentRequest = props.stripe.paymentRequest({
-            country: 'US',
-            currency: 'usd',
+            country: 'SE',
+            currency: 'sek',
             total: {
-                label: 'Demo total',
-                amount: 100,
+                label: 'GNDRS Checkout total',
+                amount: this.props.total,
             },
         });
 
         paymentRequest.on('token', ({ complete, token, ...data }) => {
-            console.log('Received Stripe token: ', token);
-            console.log('Received customer information: ', data);
+            fetch('https://us-central1-gndrs-49336.cloudfunctions.net/charge', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(token)
+            }).then(response => console.log(response))
 
             complete('success');
         });
@@ -44,8 +47,7 @@ class PaymentRequestForm extends Component {
                 style={{
                     paymentRequestButton: {
                         theme: 'dark',
-                        height: '64px',
-                        borderRadius: '12px'
+                        height: '64px'
                     },
                 }}
             />

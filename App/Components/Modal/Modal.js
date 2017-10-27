@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { createPortal } from 'react-dom'
+import Anime from 'animejs'
+import './Modal.scss'
 
 class Modal extends Component {
     constructor(props) {
@@ -7,10 +8,16 @@ class Modal extends Component {
 
         this.el = document.createElement('div');
     }
+
+    componentDidMount() {
+
+    }
+
     render() {
-        return createPortal(
-            this.props.children,
-            document.querySelector('.main')
+        return (
+            <div className={this.props.class}>
+                {this.props.children}
+            </div>
         )
     }
 }
