@@ -10,6 +10,15 @@
     max-width: 834px;
     margin: 0 auto;
 
+    &__try-again {
+        margin: 5vh 0 0;
+        color: red;
+    }
+
+    &__no-items {
+        font-size: 3vh;
+    }
+
     &__go-to {
         position: fixed;
         display: flex;
@@ -107,7 +116,7 @@
         position: relative;
         box-sizing: border-box;
         padding: 0;
-        margin: 1vh 0;
+        margin: 1vh 0 0;
         border-bottom: 2px solid black;
     }
 

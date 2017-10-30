@@ -1,11 +1,5 @@
-const path = require('path');
-const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
-// const cssOptions = {
-//     localIdentName: '[name]__[local]-[hash:base32:5]',
-//     modules: true
-// }
+const path = require('path')
+require('uglifyjs-webpack-plugin')
 
 const config = {
     entry: ["babel-polyfill", './App/index.js'],
@@ -57,9 +51,6 @@ const config = {
             }
         ]
     },
-    plugins: [
-        new UglifyJSPlugin()
-    ],
     devServer: {
         contentBase: path.join(__dirname, "public"),
         compress: true,

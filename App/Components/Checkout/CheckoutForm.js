@@ -8,7 +8,7 @@ class CheckoutForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            disabled: false,
+            validated: true,
             name: null,
             email: null,
             address_line1: null,
@@ -34,41 +34,44 @@ class CheckoutForm extends Component {
         e.preventDefault()
         e.persist()
 
-        const tokenData = Object.keys(this.state).reduce((x, y) => {
-            if (y !== 'disabled') {
-                x[y] = this.state[y]
-            }
+        const noInfo = Object.keys(this.state).some(key => this.state[key] === null)
 
-            return x
-        }, {})
-
-        const noInfo = Object.keys(tokenData).some(key => tokenData[key] === null)
-
-        if (this.state.disabled === true || noInfo) {
+        if (noInfo) {
+            this.setState({ validated: false })
             return;
         }
 
-        this.setState(
-            {disabled: true},
-            () => {
-                this.props.stripe.createToken(tokenData).then(({ token }) => {
-                    token.amount = this.props.total
-                    console.log(this.props.total)
-                    fetch('https://us-central1-gndrs-49336.cloudfunctions.net/charge', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(token)
-                    })
-                    .then(response => {
-                        console.log(response)
-                        this.props.success()
-                    })
-                    .catch(err => {
-                        this.setState({disabled: false})
-                    })
-                });
+        this.props.disable(true)
+
+        this.props.stripe.createToken(this.state).then(({ token }) => {
+            if (!token) {
+                this.setState({ validated: false })
+                this.props.disable(false)
+                return;
             }
-        )
+
+            token.amount = this.props.total
+            token.items = this.props.items
+
+            fetch('https://us-central1-gndrs-49336.cloudfunctions.net/charge', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(token)
+            })
+            .then(response => {
+                if (response.ok) {
+                    this.props.success()
+                    this.setState({ tryAgain: false, validated: true })
+                } else {
+                    this.props.disable(false)
+                    this.setState({ tryAgain: true, validated: true })
+                }
+            })
+            .catch(err => {
+                this.props.disable(false)
+                this.setState({ tryAgain: true })
+            })
+        });
     }
 
     render() {
@@ -105,6 +108,14 @@ class CheckoutForm extends Component {
                 </CustomLabel>
 
                 <CardElement style={{ base: { fontSize: '18px' } }} />
+
+                {
+                    this.state.tryAgain ? <h3 className='checkout__try-again'>Something went wrong, please try again!</h3> : null
+                }
+
+                {
+                    !this.state.validated ? <h3 className='checkout__try-again'>Please fill all the required fields</h3> : null
+                }
 
                 <button className='checkout__submit-button' type='submit'>Confirm pre-order</button>
             </form>

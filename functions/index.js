@@ -13,7 +13,16 @@ exports.charge = functions.https.onRequest((request, response) => {
             currency: "sek",
             source: request.body.id, // obtained with Stripe.js
             receipt_email: request.body.email,
-            description: `Charge for ${request.body.email}`
+            description: `Charge for ${request.body.email}`,
+            metadata: request.body.items.map(x => x.name).reduce((x,y) => {
+                if (x.hasOwnProperty(y)) {
+                    x[y] += 1
+                } else {
+                    x[y] = 1
+                }
+
+                return x
+            }, {})
         }, function (err, charge) {
             // asynchronously called
             console.log('err:', err);

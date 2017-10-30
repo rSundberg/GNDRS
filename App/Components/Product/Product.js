@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import Anime from 'animejs'
 import './Product.scss'
 
-import Modal from '../Modal/Modal'
-import Close from './close.svg'
-
 class Product extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            showModal: false
+            showMore: false
         }
     }
 
@@ -20,14 +17,15 @@ class Product extends Component {
         e.persist()
 
         this.setState(
-            prevState => ({showModal: !prevState.showModal}),
+            prevState => ({showMore: !prevState.showMore}),
             () => {
-                if (this.state.showModal) {
+                if (this.state.showMore) {
                     Anime({
                         targets: e.target.parentNode.parentNode,
                         translateY: ['75vh', '10vh'],
                         height: [0, '80vh'],
                         elasticity: 0,
+                        easing: 'easeInOutSine',
                         duration: 400
                     })
                     Anime({
@@ -36,6 +34,7 @@ class Product extends Component {
                         height: [0, '60vh'],
                         opacity: [0, 1],
                         elasticity: 0,
+                        easing: 'easeInOutSine',
                         duration: 400
                     })
                 } else {
@@ -45,6 +44,7 @@ class Product extends Component {
                         translateY: ['10vh', '75vh'],
                         height: ['80vh', 0],
                         elasticity: 0,
+                        easing: 'easeInOutSine',
                         duration: 400
                     })
 
@@ -54,6 +54,7 @@ class Product extends Component {
                         height: ['60vh', 0],
                         opacity: [1, 0],
                         elasticity: 0,
+                        easing: 'easeInOutSine',
                         duration: 400
                     })
                 }
@@ -62,21 +63,16 @@ class Product extends Component {
     }
 
     render() {
-        const {id, name, image, price} = this.props;
+        const {name, image, price} = this.props;
+        const blur = this.state.showMore ? {filter: 'blur(5px)'} : {}
 
         return (
-            <div className='product'>
-                {
-                    this.state.showModal ?
-                    <Modal class='modal'>
-                    </Modal> : null
-                }
-              
+            <div className={`product`}>
                 <div className='product__info'>
                     <div className='product__name'>{name}</div>
                     <div className='product__price'><span>799 SEK</span>{`${this.actualCost(price)} SEK`}</div>
                     <div className='product__info-row'>
-                        <div className='product__more' onClick={this.toggleModal}>{this.state.showModal ? 'Less info' : 'More info'}</div>
+                        <div className='product__more' onClick={this.toggleModal}>{this.state.showMore ? 'Less info' : 'More info'}</div>
                         <div className='product__buy' onClick={this.props.addMe}>Buy</div>
                     </div>
                     <div className='product__info-column'>
@@ -104,7 +100,7 @@ class Product extends Component {
                     </div>
                 </div>
 
-                <div className='product__image'>
+                <div className='product__image' style={blur}>
                     <img src={image} />
                 </div>
             </div>

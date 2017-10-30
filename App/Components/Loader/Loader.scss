@@ -1,0 +1,17 @@
+.loader {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+
+    &__item {
+        width: 2vh;
+        height: 2vh;
+        margin: 0 0.2vh;
+        border-radius: 50%;
+        background-color: black;
+    }
+}
